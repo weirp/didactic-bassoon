@@ -20,6 +20,17 @@
   color: white;
 }
 
+.search-text-body {
+  display: "flex";
+  flex-direction: "column";
+  align-items: "flex-start";
+  margin-top: 20px;
+}
 
-
+.search-text-string {
+  /* background-color: darkseagreen; */
+  padding: 24px;
+  margin: 24;
+  width: 98%;
+}
 
