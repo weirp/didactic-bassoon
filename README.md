@@ -8,6 +8,11 @@ To run the project:
     - npm install
     - npm start
 
+## Deployment
+The code has been deployed to an S3 bucket.
+
+http://didactic-bassoon.s3-website-ap-southeast-2.amazonaws.com/
+
 ## Background
 
 This is a React project that was created using the create-react-app script.
@@ -25,3 +30,5 @@ Launches an interactive test runner.
 ### npm run build
 
 Performs a production build. Output in the build folder.
+
+
