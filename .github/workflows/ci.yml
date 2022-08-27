@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           # Artifact name
-          name: bld-artifact # optional, default is artifact
+          name: bld-artifact-{{ github.ref }} # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
           path: src/service/search-service.tsx
 
