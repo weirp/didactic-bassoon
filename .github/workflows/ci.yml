@@ -52,3 +52,23 @@ jobs:
         run: echo deploy to test/test
       - name: deploy2
         run: echo deploy to test/test
+
+  deployment-to-prod-e1:
+    runs-on: ubuntu-latest
+    environment: prod/east-1
+    steps:
+      - name: deploy
+        run: echo deploy to prod/east-1
+      - name: deploy2
+        run: echo deploy to prod/east-1
+  deployment-to-prod-s2:
+    runs-on: ubuntu-latest
+    environment: prod/south-2
+    steps:
+      - name: deploy
+        run: echo deploy to prod/south-2
+      - name: deploy2
+        run: echo deploy to prod/south-2
+        
+
+        
