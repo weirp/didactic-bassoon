@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: bld-artifact-${{ github.sha }} # optional, default is artifact
-          path: build/
+          path: src
 
           retention-days: 2
   deployment-to-test:
