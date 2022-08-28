@@ -44,6 +44,7 @@ jobs:
   deployment-to-test:
     runs-on: ubuntu-latest
     environment: test/test
+    needs: build
     steps:
       - name: deploy
         run: echo deploy to test/test
@@ -53,6 +54,7 @@ jobs:
   deployment-to-prod-e1:
     runs-on: ubuntu-latest
     environment: prod/east-1
+    needs: build
     steps:
       - name: deploy
         run: echo deploy to prod/east-1
@@ -61,6 +63,7 @@ jobs:
   deployment-to-prod-s2:
     runs-on: ubuntu-latest
     environment: prod/south-2
+    needs: build
     steps:
       - name: deploy
         run: echo deploy to prod/south-2
