@@ -93,6 +93,16 @@ jobs:
     steps:
       - name: deploy
         run: echo deploy to test/test
+      - name: pre-ls
+        run: ls -l
+      - name: Dowload a Build Artifact docker image
+        uses: actions/download-artifact@v3.1.0
+        with:
+          name: didactic.tar
+          path: didactic.tar
+      - name: post-ls
+        run: ls -l
+
       - name: deploy2
         run: echo deploy to test/test
 
