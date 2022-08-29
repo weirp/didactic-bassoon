@@ -1,0 +1,139 @@
+name: CI
+
+on:
+  release:
+    types: [ "published" ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     node-version: [10.x, 12.x, 14.x, 15.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: aaa-src-bld-artifact-${{ github.sha }} # optional, default is artifact
+          path: src/service/search-service.tsx
+
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v3
+
+      #     # node-version: ${{ matrix.node-version }}
+      # - run: npm ci
+      # - run: npm run build
+      # - run: ls build
+
+      # -
+      #   name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v2
+      # -
+      #   name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false
+          load: true
+          tags: didactic:latest
+      - name: dkr-img1
+        run: |
+          docker images
+      # - name: docker run1
+      #   env:
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build . --file Dockerfile \
+      #       -t didactic:$IMAGE_TAG
+
+      - name: save docker image
+        run: |
+          docker save didactic:latest >> didactic.tar
+
+      - name: Upload a Build Artifact docker image
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: didactic.tar
+          path: didactic.tar
+
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+  
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: src-bld-artifact-${{ github.sha }} # optional, default is artifact
+          path: src/service/search-service.tsx
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: bld-artifact-${{ github.sha }} # optional, default is artifact
+          path: src
+
+          retention-days: 2
+  deployment-to-test:
+    runs-on: ubuntu-latest
+    environment: test/test
+    needs: build
+    steps:
+      - name: deploy
+        run: echo deploy to test/test
+      - name: pre-ls
+        run: ls -l
+      - name: Dowload a Build Artifact docker image
+        uses: actions/download-artifact@v3
+        with:
+          name: didactic.tar
+          path: .
+
+      - name: post-ls
+        run: ls -l
+
+      - name: dkr-img1
+        run: |
+          docker images
+
+      - name: load-dkr
+        run: |
+          docker load -i didactic.tar
+
+      - name: dkr-img
+        run: |
+          docker images
+      - name: deploy2
+        run: echo deploy to test/test
+
+  deployment-to-prod-e1:
+    runs-on: ubuntu-latest
+    environment: prod/east-1
+    needs: [build, deployment-to-test]
+    steps:
+      - name: deploy
+        run: echo deploy to prod/east-1
+      - name: deploy2
+        run: echo deploy to prod/east-1
+  deployment-to-prod-s2:
+    runs-on: ubuntu-latest
+    environment: prod/south-2
+    needs: [build, deployment-to-test]
+    steps:
+      - name: deploy
+        run: echo deploy to prod/south-2
+      - name: deploy2
+        run: echo deploy to prod/south-2
