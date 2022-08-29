@@ -102,7 +102,10 @@ jobs:
           path: didactic.tar
       - name: post-ls
         run: ls -l
-
+      - name: load-dkr
+        run: docker load -i didactic.tar
+      - name: dkr-img
+        run: docker images
       - name: deploy2
         run: echo deploy to test/test
 
