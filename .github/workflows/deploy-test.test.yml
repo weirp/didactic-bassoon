@@ -12,4 +12,6 @@ jobs:
     steps:
       - name: deploy
         run: echo deploy to test/test
+      - name: deploy2
+        run: echo deploy to test/test
         # ...deployment-specific steps
