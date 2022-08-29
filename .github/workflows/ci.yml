@@ -51,7 +51,9 @@ jobs:
           push: false
           load: true
           tags: didactic:latest
-
+      - name: dkr-img1
+        run: |
+          docker images
       # - name: docker run1
       #   env:
       #     IMAGE_TAG: ${{ github.sha }}
