@@ -103,14 +103,18 @@ jobs:
         with:
           name: didactic.tar
           path: didactic.tar
+
       - name: post-ls
         run: ls -l
+
       - name: dkr-img1
         run: |
           docker images
 
       - name: load-dkr
-        run: docker load -i didactic.tar
+        run: |
+          docker load -i didactic.tar
+          
       - name: dkr-img
         run: |
           docker images
