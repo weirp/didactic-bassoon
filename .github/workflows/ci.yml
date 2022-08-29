@@ -96,7 +96,7 @@ jobs:
       - name: pre-ls
         run: ls -l
       - name: Dowload a Build Artifact docker image
-        uses: actions/download-artifact@v3.1.0
+        uses: actions/download-artifact@v3
         with:
           name: didactic.tar
           path: didactic.tar
