@@ -49,6 +49,7 @@ jobs:
         with:
           context: .
           push: false
+          load: true
           tags: didactic:latest
 
       # - name: docker run1
@@ -102,10 +103,15 @@ jobs:
           path: didactic.tar
       - name: post-ls
         run: ls -l
+      - name: dkr-img1
+        run: |
+          docker images
+
       - name: load-dkr
         run: docker load -i didactic.tar
       - name: dkr-img
-        run: docker images
+        run: |
+          docker images
       - name: deploy2
         run: echo deploy to test/test
 
